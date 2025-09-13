@@ -1,48 +1,29 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "../src/services/firebaseConfig"
 import { useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../src/context/ThemeContext';
+import { registerUser } from '../src/services/auth';
 
 export default function RegisterScreen() {
   const{colors} = useTheme()
-  // Estados para armazenar os valores digitados
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const router = useRouter()//Hook de navegação..
+  const router = useRouter()
 
-  // Função para simular o envio do formulário
-  const handleCadastro = () => {
+  const handleCadastro = async () => {
     if (!nome || !email || !senha) {
       Alert.alert('Atenção', 'Preencha todos os campos!');
       return;
     }
-    //Implementação do backend
-    createUserWithEmailAndPassword(auth, email, senha)
-      .then(async(userCredential) => {
-        const user = userCredential.user
-        console.log(user)
-        await AsyncStorage.setItem('@user',JSON.stringify(user))
-        router.push('/HomeScreen')
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage)
-        alert("Usuário não cadastrado.")
-      })
-
+    await registerUser(email, senha)
   };
 
   return (
     <View style={[styles.container,{backgroundColor:colors.background}]}>
       <Text style={[styles.titulo,{color:colors.text}]}>Criar Conta</Text>
 
-      {/* Campo Nome */}
       <TextInput
         style={styles.input}
         placeholder="Nome completo"
@@ -51,8 +32,7 @@ export default function RegisterScreen() {
         onChangeText={setNome}
       />
 
-      {/* Campo Email */}
-      <TextInput
+        <TextInput
         style={styles.input}
         placeholder="E-mail"
         placeholderTextColor="#aaa"
@@ -62,7 +42,6 @@ export default function RegisterScreen() {
         onChangeText={setEmail}
       />
 
-      {/* Campo Senha */}
       <TextInput
         style={styles.input}
         placeholder="Senha"
@@ -72,15 +51,12 @@ export default function RegisterScreen() {
         onChangeText={setSenha}
       />
 
-      {/* Botão */}
       <TouchableOpacity style={styles.botao} onPress={handleCadastro}>
         <Text style={[styles.textoBotao,{color:colors.text}]}>Cadastrar</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-// Estilização
 const styles = StyleSheet.create({
   container: {
     flex: 1,
