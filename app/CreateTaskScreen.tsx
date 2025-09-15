@@ -1,0 +1,123 @@
+import { router } from "expo-router";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useTheme } from "../src/context/ThemeContext";
+
+export default function CreateTaskScreen({ navigation }: any) {
+  const { colors } = useTheme();
+  const { t } = useTranslation();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const completed = false;
+  const [dueDate, setDueDate] = useState("");
+  const [createdAt] = new Date().toISOString().slice(0, 10);
+  const [updatedAt] = new Date().toISOString().slice(0, 10);
+
+  const styles = getStyles(colors);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>{t("createTask.title")}</Text>
+      <TextInput
+        style={styles.input}
+        placeholder={t("createTask.namePlaceholder")}
+        placeholderTextColor={colors.inputBorder}
+        value={title}
+        onChangeText={setTitle}
+      />
+      <TextInput
+        style={[styles.input, { height: 80 }]}
+        placeholder={t("createTask.descriptionPlaceholder")}
+        placeholderTextColor={colors.inputBorder}
+        value={description}
+        onChangeText={setDescription}
+        multiline
+      />
+      <TextInput
+        style={styles.input}
+        placeholder={t("createTask.dueDatePlaceholder") || "Prazo"}
+        placeholderTextColor={colors.inputBorder}
+        value={dueDate}
+        onChangeText={setDueDate}
+      />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push("/HomeScreen")}
+      >
+        <Text style={styles.buttonText}>{t("createTask.button")}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonBack}
+        onPress={() => router.push("/HomeScreen")}
+      >
+        <Text
+          style={{ color: colors.button, fontSize: 18, fontWeight: "bold" }}
+        >
+          {t("createTask.back")}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const getStyles = (colors: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+      padding: 20,
+      justifyContent: "center",
+    },
+    header: {
+      fontSize: 24,
+      fontWeight: "bold",
+      color: colors.text,
+      marginBottom: 20,
+      textAlign: "center",
+    },
+    input: {
+      backgroundColor: colors.inputBackground,
+      color: colors.text,
+      borderRadius: 10,
+      padding: Platform.OS === "ios" ? 15 : 10,
+      marginBottom: 15,
+      fontSize: 16,
+      borderWidth: 1,
+      borderColor: colors.inputBorder,
+    },
+    row: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 15,
+      gap: 10,
+    },
+    button: {
+      backgroundColor: colors.button,
+      padding: 15,
+      borderRadius: 10,
+      alignItems: "center",
+      marginBottom: 10,
+    },
+    buttonText: {
+      color: "#fff",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    buttonBack: {
+      borderColor: colors.button,
+      borderWidth: 2,
+      padding: 15,
+      borderRadius: 10,
+      alignItems: "center",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+  });

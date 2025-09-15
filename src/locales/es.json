@@ -30,5 +30,15 @@
     "created": "Creada",
     "updated": "Actualizada",
     "due": "Plazo"
+  },
+  "createTask": {
+    "title": "Crear Tarea",
+    "namePlaceholder": "Nombre de la tarea",
+    "descriptionPlaceholder": "Descripción",
+    "dueDatePlaceholder": "Fecha de vencimiento (AAAA-MM-DD)",
+    "button": "Crear",
+    "created": "Creada",
+    "updated": "Actualizada",
+    "back": "Volver"
   }
 }
