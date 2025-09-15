@@ -1,4 +1,5 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { Appearance } from "react-native";
 
 type ThemeType = "light" | "dark";
@@ -36,10 +37,31 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
   const colorScheme = Appearance.getColorScheme();
   const [theme, setTheme] = useState<ThemeType>(colorScheme || "dark");
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+  const THEME_KEY = "@app_theme";
 
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const storedTheme = await AsyncStorage.getItem(THEME_KEY);
+        if (storedTheme === "light" || storedTheme === "dark") {
+          setTheme(storedTheme);
+        }
+      } catch (e) {
+        console.error("Erro ao carregar tema:", e);
+      }
+    };
+    loadTheme();
+  }, []);
+
+  const toggleTheme = async () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    try {
+      await AsyncStorage.setItem(THEME_KEY, newTheme);
+    } catch (e) {
+      console.error("Erro ao salvar tema:", e);
+    }
+  };
   const themeColors: Record<ThemeType, ThemeColors> = {
     light: {
       background: "#fff",
