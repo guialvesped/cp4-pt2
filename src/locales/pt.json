@@ -21,5 +21,14 @@
     "alertMessage": "Preencha todos os campos!",
     "errorTitle": "Erro",
     "errorMessage": "Não foi possível fazer login. Verifique suas credenciais."
+  },
+  "home": {
+    "title": "Minhas Tasks",
+    "empty": "Nenhuma task cadastrada.",
+    "completed": "✅ Concluída",
+    "pending": "⏳ Pendente",
+    "created": "Criada",
+    "updated": "Atualizada",
+    "due": "Prazo"
   }
 }

@@ -21,5 +21,14 @@
     "alertMessage": "¡Por favor completa todos los campos!",
     "errorTitle": "Error",
     "errorMessage": "No se pudo iniciar sesión. Verifica tus credenciales."
+  },
+  "home": {
+    "title": "Mis Tareas",
+    "empty": "No hay tareas registradas.",
+    "completed": "✅ Completada",
+    "pending": "⏳ Pendiente",
+    "created": "Creada",
+    "updated": "Actualizada",
+    "due": "Plazo"
   }
 }

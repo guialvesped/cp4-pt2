@@ -21,5 +21,14 @@
     "alertMessage": "Please fill in all fields!",
     "errorTitle": "Error",
     "errorMessage": "Unable to log in. Check your credentials."
+  },
+  "home": {
+    "title": "My Tasks",
+    "empty": "No tasks registered.",
+    "completed": "✅ Completed",
+    "pending": "⏳ Pending",
+    "created": "Created",
+    "updated": "Updated",
+    "due": "Due"
   }
 }

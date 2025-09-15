@@ -28,7 +28,6 @@ export default function LoginScreen() {
       Alert.alert(t("login.alertTitle"), t("login.alertMessage"));
       return;
     }
-
     try {
       await loginUser(email, senha);
     } catch (error) {
@@ -48,7 +47,7 @@ export default function LoginScreen() {
         >
           {t("login.dontHaveAccount")}{" "}
           <Link
-            href="/register"
+            href="/RegisterScreen"
             style={{ color: colors.button, textDecorationLine: "underline" }}
           >
             {t("login.registerLink")}

@@ -44,7 +44,7 @@ export default function RegisterScreen() {
         >
           {t("register.alreadyHaveAccount")}{" "}
           <Link
-            href="/login"
+            href="/"
             style={{ color: colors.button, textDecorationLine: "underline" }}
           >
             {t("register.loginLink")}
