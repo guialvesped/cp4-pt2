@@ -1,0 +1,13 @@
+{
+  "register": {
+    "title": "Crear Cuenta",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "loginLink": "¡Inicia sesión!",
+    "namePlaceholder": "Nombre completo",
+    "emailPlaceholder": "Correo electrónico",
+    "passwordPlaceholder": "Contraseña",
+    "button": "Registrarse",
+    "alertTitle": "Atención",
+    "alertMessage": "¡Complete todos los campos!"
+  }
+}

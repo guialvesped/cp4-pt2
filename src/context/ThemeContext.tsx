@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import { Appearance } from "react-native";
 
 type ThemeType = "light" | "dark";
@@ -8,6 +8,8 @@ interface ThemeColors {
   text: string;
   button: string;
   buttonText: string;
+  inputBackground: string;
+  inputBorder: string;
 }
 
 interface ThemeContextType {
@@ -32,7 +34,7 @@ interface ThemeProviderProps {
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
   const colorScheme = Appearance.getColorScheme();
-  const [theme, setTheme] = useState<ThemeType>(colorScheme || "light");
+  const [theme, setTheme] = useState<ThemeType>(colorScheme || "dark");
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
@@ -43,13 +45,17 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
       background: "#fff",
       text: "#000",
       button: "#007",
-      buttonText: "#fff",
+      buttonText: "#575757ff",
+      inputBackground: "##f1f3f4",
+      inputBorder: "#ccc",
     },
     dark: {
       background: "#121212",
       text: "#fff",
       button: "#59e067",
-      buttonText: "#000",
+      buttonText: "#575757ff",
+      inputBackground: "#1f1f1f",
+      inputBorder: "#333",
     },
   };
 

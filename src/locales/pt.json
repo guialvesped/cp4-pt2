@@ -1,0 +1,13 @@
+{
+  "register": {
+    "title": "Criar Conta",
+    "alreadyHaveAccount": "Já possui uma conta?",
+    "loginLink": "Faça login!",
+    "namePlaceholder": "Nome completo",
+    "emailPlaceholder": "E-mail",
+    "passwordPlaceholder": "Senha",
+    "button": "Cadastrar",
+    "alertTitle": "Atenção",
+    "alertMessage": "Preencha todos os campos!"
+  }
+}
