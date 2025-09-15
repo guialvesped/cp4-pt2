@@ -1,5 +1,5 @@
-import { Link } from "expo-router";
-import React, { useState } from "react";
+import { Link, router, usePathname } from "expo-router";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Alert,
@@ -14,12 +14,31 @@ import LanguageSelector from "../src/components/LanguageSelector";
 import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import { useTheme } from "../src/context/ThemeContext";
 import { loginUser } from "../src/services/auth";
+import { useAuth } from "../src/context/AuthContext";
 
 export default function LoginScreen() {
   const { colors } = useTheme();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const { t } = useTranslation();
+
+
+  const pathname = usePathname();
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      if (user && pathname !== "/HomeScreen") {
+        router.replace("/HomeScreen");
+      } 
+      if (!user && pathname !== "/") {
+        router.replace("/");
+      }
+    }
+  }, [user, loading, pathname]);
+
+
+
 
   const styles = getStyles(colors);
 
