@@ -16,6 +16,7 @@ import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import { useTheme } from "../src/context/ThemeContext";
 import { collection, db, getDocs } from "../src/services/firebaseConfig";
 import { useEffect, useState } from "react";
+import { Timestamp } from "firebase/firestore";
 
 export interface Task {
   id: string;
@@ -61,11 +62,24 @@ export default function HomeScreen() {
       const items: any = []
 
       querySnapshot.forEach((item) => {
+        const data = item.data();
+
+        const parseDate = (value: any) => {
+          if (!value) return ""; 
+          if (value instanceof Timestamp) return value.toDate().toISOString();
+          return value; 
+        };
+
         items.push({
-        ...item.data(),
-        id: item.id
-        })
-      })
+          id: item.id,
+          title: data.title,
+          description: data.description,
+          completed: data.completed,
+          dueDate: parseDate(data.dueDate),
+          createdAt: parseDate(data.createdAt),
+          updatedAt: parseDate(data.updatedAt),
+        });
+      });
       setTasksList(items)
     } catch (e) {
       console.log("Erro ao carregar os items", e)
