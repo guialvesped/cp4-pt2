@@ -6,8 +6,20 @@
     "namePlaceholder": "Nombre completo",
     "emailPlaceholder": "Correo electrónico",
     "passwordPlaceholder": "Contraseña",
-    "button": "Registrarse",
+    "button": "Registrar",
     "alertTitle": "Atención",
-    "alertMessage": "¡Complete todos los campos!"
+    "alertMessage": "¡Por favor completa todos los campos!"
+  },
+  "login": {
+    "title": "Iniciar Sesión",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "registerLink": "¡Regístrate!",
+    "emailPlaceholder": "Correo electrónico",
+    "passwordPlaceholder": "Contraseña",
+    "button": "Entrar",
+    "alertTitle": "Atención",
+    "alertMessage": "¡Por favor completa todos los campos!",
+    "errorTitle": "Error",
+    "errorMessage": "No se pudo iniciar sesión. Verifica tus credenciales."
   }
 }

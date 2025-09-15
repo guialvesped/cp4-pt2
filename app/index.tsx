@@ -13,55 +13,51 @@ import { Provider } from "react-native-paper";
 import LanguageSelector from "../src/components/LanguageSelector";
 import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import { useTheme } from "../src/context/ThemeContext";
-import { registerUser } from "../src/services/auth";
+import { loginUser } from "../src/services/auth";
 
-export default function RegisterScreen() {
+export default function LoginScreen() {
   const { colors } = useTheme();
-  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const { t } = useTranslation();
 
   const styles = getStyles(colors);
 
-  const handleCadastro = async () => {
-    if (!nome || !email || !senha) {
-      Alert.alert(t("register.alertTitle"), t("register.alertMessage"));
+  const handleLogin = async () => {
+    if (!email || !senha) {
+      Alert.alert(t("login.alertTitle"), t("login.alertMessage"));
       return;
     }
-    await registerUser(email, senha);
+
+    try {
+      await loginUser(email, senha);
+    } catch (error) {
+      Alert.alert(t("login.errorTitle"), t("login.errorMessage"));
+    }
   };
 
   return (
     <Provider>
       <View style={styles.container}>
         <Text style={[styles.titulo, { color: colors.text }]}>
-          {t("register.title")}
+          {t("login.title")}
         </Text>
 
         <Text
           style={{ color: colors.text, textAlign: "center", marginBottom: 20 }}
         >
-          {t("register.alreadyHaveAccount")}{" "}
+          {t("login.dontHaveAccount")}{" "}
           <Link
-            href="/login"
+            href="/register"
             style={{ color: colors.button, textDecorationLine: "underline" }}
           >
-            {t("register.loginLink")}
+            {t("login.registerLink")}
           </Link>
         </Text>
 
         <TextInput
           style={styles.input}
-          placeholder={t("register.namePlaceholder")}
-          placeholderTextColor="#aaa"
-          value={nome}
-          onChangeText={setNome}
-        />
-
-        <TextInput
-          style={styles.input}
-          placeholder={t("register.emailPlaceholder")}
+          placeholder={t("login.emailPlaceholder")}
           placeholderTextColor="#aaa"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -71,16 +67,17 @@ export default function RegisterScreen() {
 
         <TextInput
           style={styles.input}
-          placeholder={t("register.passwordPlaceholder")}
+          placeholder={t("login.passwordPlaceholder")}
           placeholderTextColor="#aaa"
           secureTextEntry
           value={senha}
           onChangeText={setSenha}
         />
 
-        <TouchableOpacity style={styles.botao} onPress={handleCadastro}>
-          <Text style={styles.textoBotao}>{t("register.button")}</Text>
+        <TouchableOpacity style={styles.botao} onPress={handleLogin}>
+          <Text style={styles.textoBotao}>{t("login.button")}</Text>
         </TouchableOpacity>
+
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
           <ThemeToggleButton />
           <View style={styles.languageSelectorWrapper}>
@@ -91,6 +88,7 @@ export default function RegisterScreen() {
     </Provider>
   );
 }
+
 const getStyles = (colors: any) =>
   StyleSheet.create({
     container: {

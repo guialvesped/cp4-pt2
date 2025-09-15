@@ -2,12 +2,24 @@
   "register": {
     "title": "Create Account",
     "alreadyHaveAccount": "Already have an account?",
-    "loginLink": "Login here!",
+    "loginLink": "Log in!",
     "namePlaceholder": "Full name",
     "emailPlaceholder": "Email",
     "passwordPlaceholder": "Password",
-    "button": "Sign Up",
+    "button": "Register",
     "alertTitle": "Attention",
     "alertMessage": "Please fill in all fields!"
+  },
+  "login": {
+    "title": "Login",
+    "dontHaveAccount": "Don't have an account?",
+    "registerLink": "Sign up!",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "button": "Login",
+    "alertTitle": "Attention",
+    "alertMessage": "Please fill in all fields!",
+    "errorTitle": "Error",
+    "errorMessage": "Unable to log in. Check your credentials."
   }
 }

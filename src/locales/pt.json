@@ -9,5 +9,17 @@
     "button": "Cadastrar",
     "alertTitle": "Atenção",
     "alertMessage": "Preencha todos os campos!"
+  },
+  "login": {
+    "title": "Entrar",
+    "dontHaveAccount": "Não possui uma conta?",
+    "registerLink": "Cadastre-se!",
+    "emailPlaceholder": "E-mail",
+    "passwordPlaceholder": "Senha",
+    "button": "Entrar",
+    "alertTitle": "Atenção",
+    "alertMessage": "Preencha todos os campos!",
+    "errorTitle": "Erro",
+    "errorMessage": "Não foi possível fazer login. Verifique suas credenciais."
   }
 }
