@@ -10,6 +10,8 @@ import {
   View,
 } from "react-native";
 import { useTheme } from "../src/context/ThemeContext";
+import { addDoc, collection, db } from "../src/services/firebaseConfig";
+import { Timestamp } from "firebase/firestore";
 
 export default function CreateTaskScreen({ navigation }: any) {
   const { colors } = useTheme();
@@ -18,10 +20,28 @@ export default function CreateTaskScreen({ navigation }: any) {
   const [description, setDescription] = useState("");
   const completed = false;
   const [dueDate, setDueDate] = useState("");
-  const [createdAt] = new Date().toISOString().slice(0, 10);
-  const [updatedAt] = new Date().toISOString().slice(0, 10);
+  const createdAt = Timestamp.fromDate(new Date());
+  const updatedAt = Timestamp.fromDate(new Date());
+  const dueDateTimestamp = dueDate ? Timestamp.fromDate(new Date(dueDate)) : null;
 
   const styles = getStyles(colors);
+
+  const salvarItem = async()=>{
+    try{
+      const docRef = await addDoc(collection(db,'items'),{
+      title: title,
+      description: description,
+      completed: completed,
+      dueDate: dueDateTimestamp,
+      createdAt: createdAt,
+      updatedAt: updatedAt
+      })
+      console.log("Produto criado com o ID:",docRef.id)
+      router.push("HomeScreen")
+    }catch(e){
+      console.log("Erro ao criar o produto",e)
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -50,7 +70,7 @@ export default function CreateTaskScreen({ navigation }: any) {
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("/HomeScreen")}
+        onPress={salvarItem}
       >
         <Text style={styles.buttonText}>{t("createTask.button")}</Text>
       </TouchableOpacity>

@@ -2,6 +2,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import {
+  ActivityIndicator,
   FlatList,
   StyleSheet,
   Text,
@@ -13,6 +14,9 @@ import LanguageSelector from "../src/components/LanguageSelector";
 import TaskCard from "../src/components/TaskCard";
 import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import { useTheme } from "../src/context/ThemeContext";
+import { collection, db, getDocs } from "../src/services/firebaseConfig";
+import { useEffect, useState } from "react";
+
 export interface Task {
   id: string;
   title: string;
@@ -49,6 +53,29 @@ export default function HomeScreen() {
   const { t } = useTranslation();
   const styles = getStyles(colors);
 
+  const [tasksList, setTasksList] = useState<Task[]>([])
+
+  const buscarProdutos = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'items'));
+      const items: any = []
+
+      querySnapshot.forEach((item) => {
+        items.push({
+        ...item.data(),
+        id: item.id
+        })
+      })
+      setTasksList(items)
+    } catch (e) {
+      console.log("Erro ao carregar os items", e)
+    }
+  }
+
+  useEffect(() => {
+    buscarProdutos()
+  }, [])
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View
@@ -81,17 +108,19 @@ export default function HomeScreen() {
           <AntDesign name="plus" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={mockTasks}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TaskCard item={item} colors={colors} styles={styles} />
-        )}
-        contentContainerStyle={{ padding: 16 }}
-        ListEmptyComponent={
-          <Text style={{ color: colors.text }}>{t("home.empty")}</Text>
-        }
-      />
+      {tasksList.length<=0?<ActivityIndicator/>:(
+        <FlatList
+          data={tasksList}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TaskCard item={item} colors={colors} styles={styles} />
+          )}
+          contentContainerStyle={{ padding: 16 }}
+          ListEmptyComponent={
+            <Text style={{ color: colors.text }}>{t("home.empty")}</Text>
+          }
+        />
+      )}
     </SafeAreaView>
   );
 }
