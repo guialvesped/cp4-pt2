@@ -11,12 +11,12 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCHTuyg21jIV_9BuxGL3YB5yG9oO2_XQcc",
-  authDomain: "cp4-pt2.firebaseapp.com",
-  projectId: "cp4-pt2",
-  storageBucket: "cp4-pt2.firebasestorage.app",
-  messagingSenderId: "257312449889",
-  appId: "1:257312449889:web:45e30e3ec5746ffa185120",
+  apiKey: "AIzaSyCYxLC07vMc4Km_yfGBhlO_qEi1diJn5S0",
+  authDomain: "cp4-pt2-e50b3.firebaseapp.com",
+  projectId: "cp4-pt2-e50b3",
+  storageBucket: "cp4-pt2-e50b3.firebasestorage.app",
+  messagingSenderId: "600602350750",
+  appId: "1:600602350750:web:40d9e327e42543c87e178f",
   measurementId: "G-38XS1WEQK2",
 };
 
