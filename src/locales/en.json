@@ -30,5 +30,15 @@
     "created": "Created",
     "updated": "Updated",
     "due": "Due"
+  },
+  "createTask": {
+    "title": "Create Task",
+    "namePlaceholder": "Task name",
+    "descriptionPlaceholder": "Description",
+    "dueDatePlaceholder": "Due date (YYYY-MM-DD)",
+    "button": "Create",
+    "created": "Created",
+    "updated": "Updated",
+    "back": "Back"
   }
 }

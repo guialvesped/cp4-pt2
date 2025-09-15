@@ -30,5 +30,15 @@
     "created": "Criada",
     "updated": "Atualizada",
     "due": "Prazo"
+  },
+  "createTask": {
+    "title": "Criar Task",
+    "namePlaceholder": "Nome da task",
+    "descriptionPlaceholder": "Descrição",
+    "dueDatePlaceholder": "Data de vencimento (AAAA-MM-DD)",
+    "button": "Criar",
+    "created": "Criada",
+    "updated": "Atualizada",
+    "back": "Voltar"
   }
 }

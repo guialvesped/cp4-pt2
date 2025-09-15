@@ -73,7 +73,7 @@ export default function LoginScreen() {
           onChangeText={setSenha}
         />
 
-        <TouchableOpacity style={styles.botao} onPress={handleLogin}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.textoBotao}>{t("login.button")}</Text>
         </TouchableOpacity>
 
@@ -118,7 +118,7 @@ const getStyles = (colors: any) =>
       borderWidth: 1,
       borderColor: colors.inputBorder,
     },
-    botao: {
+    button: {
       backgroundColor: colors.button,
       padding: 15,
       borderRadius: 10,
