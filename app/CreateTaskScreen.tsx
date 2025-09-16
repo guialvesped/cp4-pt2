@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { Timestamp } from "firebase/firestore";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -9,14 +10,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useAuth } from "../src/context/AuthContext";
 import { useTheme } from "../src/context/ThemeContext";
 import { addDoc, collection, db } from "../src/services/firebaseConfig";
-import { Timestamp } from "firebase/firestore";
 import { scheduleTaskNotification } from "../src/services/notification";
-import { useAuth } from "../src/context/AuthContext";
 
-
-export default function CreateTaskScreen({ navigation }: any) {
+export default function CreateTaskScreen() {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -26,12 +25,13 @@ export default function CreateTaskScreen({ navigation }: any) {
   const [dueDate, setDueDate] = useState("");
   const createdAt = Timestamp.fromDate(new Date());
   const updatedAt = Timestamp.fromDate(new Date());
-  const dueDateTimestamp = dueDate ? Timestamp.fromDate(new Date(dueDate)) : null;
+  const dueDateTimestamp = dueDate
+    ? Timestamp.fromDate(new Date(dueDate))
+    : null;
 
   const styles = getStyles(colors);
 
-  const salvarItem = async()=>{
-    
+  const salvarItem = async () => {
     if (!title.trim()) {
       alert(t("createTask.validationTitle"));
       return;
@@ -47,25 +47,25 @@ export default function CreateTaskScreen({ navigation }: any) {
       return;
     }
 
-    try{
-      const docRef = await addDoc(collection(db,'items'),{
-      userId: user?.uid,
-      title: title,
-      description: description,
-      completed: completed,
-      dueDate: dueDateTimestamp,
-      createdAt: createdAt,
-      updatedAt: updatedAt
-      })
+    try {
+      const docRef = await addDoc(collection(db, "items"), {
+        userId: user?.uid,
+        title: title,
+        description: description,
+        completed: completed,
+        dueDate: dueDateTimestamp,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+      });
 
-     await scheduleTaskNotification( title, dueDate);
+      await scheduleTaskNotification(title, dueDate);
 
-      console.log("Task criada com o ID:",docRef.id)
-      router.push("HomeScreen")
-    }catch(e){
-      console.log("Erro ao criar o Task",e)
+      console.log("Task criada com o ID:", docRef.id);
+      router.push("HomeScreen");
+    } catch (e) {
+      console.log("Erro ao criar o Task", e);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -92,15 +92,12 @@ export default function CreateTaskScreen({ navigation }: any) {
         value={dueDate}
         onChangeText={setDueDate}
       />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={salvarItem}
-      >
+      <TouchableOpacity style={styles.button} onPress={salvarItem}>
         <Text style={styles.buttonText}>{t("createTask.button")}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonBack}
-        onPress={() => router.push("/HomeScreen")}
+        onPress={() => router.push("HomeScreen")}
       >
         <Text
           style={{ color: colors.button, fontSize: 18, fontWeight: "bold" }}

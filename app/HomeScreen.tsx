@@ -1,8 +1,9 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { router } from "expo-router";
+import { onSnapshot, query, Timestamp, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  ActivityIndicator,
   FlatList,
   StyleSheet,
   Text,
@@ -11,15 +12,13 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LanguageSelector from "../src/components/LanguageSelector";
-import TaskCard from "../src/components/TaskCard";
-import ThemeToggleButton from "../src/components/ThemeToggleButton";
-import { useTheme } from "../src/context/ThemeContext";
-import { collection, db, getDocs } from "../src/services/firebaseConfig";
-import { useEffect, useState } from "react";
-import { onSnapshot, query, Timestamp, where } from "firebase/firestore";
-import TaskIdeas from "../src/components/TaskIdeas";
 import LogoutButton from "../src/components/LogoutButton";
+import TaskCard from "../src/components/TaskCard";
+import TaskIdeas from "../src/components/TaskIdeas";
+import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import { useAuth } from "../src/context/AuthContext";
+import { useTheme } from "../src/context/ThemeContext";
+import { collection, db } from "../src/services/firebaseConfig";
 
 export interface Task {
   userId: string;
@@ -38,7 +37,7 @@ export default function HomeScreen() {
   const styles = getStyles(colors);
   const { user } = useAuth();
 
-  const [tasksList, setTasksList] = useState<Task[]>([])
+  const [tasksList, setTasksList] = useState<Task[]>([]);
 
   useEffect(() => {
     if (!user) return;
@@ -72,7 +71,7 @@ export default function HomeScreen() {
       setTasksList(items);
     });
 
-    return () => unsubscribe(); 
+    return () => unsubscribe();
   }, [user]);
 
   return (
@@ -89,7 +88,7 @@ export default function HomeScreen() {
         <LogoutButton />
         <LanguageSelector />
       </View>
-      <TaskIdeas/>
+      <TaskIdeas />
       <View
         style={{
           display: "flex",
@@ -104,14 +103,33 @@ export default function HomeScreen() {
         </Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/CreateTaskScreen")}
+          onPress={() => router.push("CreateTaskScreen")}
         >
           <AntDesign name="plus" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
 
-
-      {tasksList.length<=0?<ActivityIndicator/>:(
+      {tasksList.length <= 0 ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 32,
+          }}
+        >
+          <Text
+            style={{
+              color: colors.text,
+              fontSize: 18,
+              textAlign: "center",
+              opacity: 0.7,
+            }}
+          >
+            {t("home.empty")}
+          </Text>
+        </View>
+      ) : (
         <FlatList
           data={tasksList}
           keyExtractor={(item) => item.id}

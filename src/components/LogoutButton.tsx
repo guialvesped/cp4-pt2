@@ -1,9 +1,9 @@
-import { Button, Alert } from "react-native";
-import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
 import { signOut } from "firebase/auth";
-import { auth } from "../services/firebaseConfig";
 import { useTranslation } from "react-i18next";
+import { Alert, Button } from "react-native";
+import { auth } from "../services/firebaseConfig";
 
 export default function LogoutButton() {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ export default function LogoutButton() {
               await signOut(auth);
               await AsyncStorage.removeItem("@user");
 
-              router.replace("/");
+              router.push("/");
             } catch (error) {
               console.log("Erro ao deslogar:", error);
               Alert.alert("Erro", "Não foi possível realizar o logout.");

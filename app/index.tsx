@@ -12,9 +12,9 @@ import {
 import { Provider } from "react-native-paper";
 import LanguageSelector from "../src/components/LanguageSelector";
 import ThemeToggleButton from "../src/components/ThemeToggleButton";
+import { useAuth } from "../src/context/AuthContext";
 import { useTheme } from "../src/context/ThemeContext";
 import { loginUser } from "../src/services/auth";
-import { useAuth } from "../src/context/AuthContext";
 
 export default function LoginScreen() {
   const { colors } = useTheme();
@@ -22,27 +22,16 @@ export default function LoginScreen() {
   const [senha, setSenha] = useState("");
   const { t } = useTranslation();
 
-
   const pathname = usePathname();
   const { user, loading } = useAuth();
 
   useEffect(() => {
     if (loading) return;
 
-    if (user && pathname !== "/HomeScreen") {
-      router.replace("/HomeScreen");
-    }
-
-    if (!user) {
-      const publicRoutes = ["/", "/RegisterScreen"];
-      if (!publicRoutes.includes(pathname)) {
-        router.replace("/");
-      }
+    if (user) {
+      router.push("HomeScreen");
     }
   }, [user, loading, pathname]);
-
-
-
 
   const styles = getStyles(colors);
 
@@ -70,7 +59,7 @@ export default function LoginScreen() {
         >
           {t("login.dontHaveAccount")}{" "}
           <Link
-            href="/RegisterScreen"
+            href="RegisterScreen"
             style={{ color: colors.button, textDecorationLine: "underline" }}
           >
             {t("login.registerLink")}
