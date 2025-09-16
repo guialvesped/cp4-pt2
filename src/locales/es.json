@@ -40,6 +40,9 @@
     "button": "Crear",
     "created": "Creada",
     "updated": "Actualizada",
-    "back": "Volver"
+    "back": "Volver",
+    "validationTitle": "Ingrese un título válido",
+    "validationDescription": "Ingrese una descripción válida",
+    "validationDueDate": "Ingrese una fecha válida (AAAA-MM-DD)"
   }
 }

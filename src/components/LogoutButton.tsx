@@ -21,7 +21,7 @@ export default function LogoutButton() {
               await signOut(auth);
               await AsyncStorage.removeItem("@user");
 
-              router.replace("/login");
+              router.replace("/");
             } catch (error) {
               console.log("Erro ao deslogar:", error);
               Alert.alert("Erro", "Não foi possível realizar o logout.");

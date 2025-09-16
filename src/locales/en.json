@@ -40,6 +40,9 @@
     "button": "Create",
     "created": "Created",
     "updated": "Updated",
-    "back": "Back"
+    "back": "Back",
+    "validationTitle": "Please enter a valid title",
+    "validationDescription": "Please enter a valid description",
+    "validationDueDate": "Please enter a valid date (YYYY-MM-DD)"
   }
 }

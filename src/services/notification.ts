@@ -41,25 +41,18 @@ export async function registerForPushNotificationsAsync() {
 }
 
 
-export const scheduleTaskNotification = async (dueDate: string, taskName: string) => {
+export const scheduleTaskNotification = async (taskName: string, dueDate: string) => {
   const due = new Date(dueDate);
-  const notifyAt = new Date(due);
-  notifyAt.setDate(due.getDate() - 1); // 1 dia antes
 
-  const secondsUntilNotify = Math.floor((notifyAt.getTime() - Date.now()) / 1000);
-  if (secondsUntilNotify > 0) {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "📌 Lembrete de tarefa",
-        body: `Falta 1 dia para: ${taskName}`,
-        sound: "default",
-      },
-      trigger: {
-        type: "timeInterval",
-        seconds: secondsUntilNotify,
-        repeats: false,
-      } as Notifications.TimeIntervalTriggerInput,
-    });
-  }
+  const diffMs = due.getTime() - Date.now();
+  const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "📌 Nova tarefa criada",
+      body: `Faltam ${daysLeft} dia(s) para concluir: ${taskName}`,
+      sound: "default",
+    },
+    trigger: { seconds: 10 } as Notifications.TimeIntervalTriggerInput, 
+  });
 };
-

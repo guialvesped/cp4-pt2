@@ -29,6 +29,22 @@ export default function CreateTaskScreen({ navigation }: any) {
   const styles = getStyles(colors);
 
   const salvarItem = async()=>{
+    
+    if (!title.trim()) {
+      alert(t("createTask.validationTitle"));
+      return;
+    }
+
+    if (!description.trim()) {
+      alert(t("createTask.validationDescription"));
+      return;
+    }
+
+    if (!dueDate.trim() || isNaN(new Date(dueDate).getTime())) {
+      alert(t("createTask.validationDueDate"));
+      return;
+    }
+
     try{
       const docRef = await addDoc(collection(db,'items'),{
       title: title,
@@ -41,10 +57,10 @@ export default function CreateTaskScreen({ navigation }: any) {
 
      await scheduleTaskNotification( title, dueDate);
 
-      console.log("Produto criado com o ID:",docRef.id)
+      console.log("Task criada com o ID:",docRef.id)
       router.push("HomeScreen")
     }catch(e){
-      console.log("Erro ao criar o produto",e)
+      console.log("Erro ao criar o Task",e)
     }
   }
 

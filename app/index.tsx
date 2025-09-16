@@ -27,11 +27,15 @@ export default function LoginScreen() {
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (!loading) {
-      if (user && pathname !== "/HomeScreen") {
-        router.replace("/HomeScreen");
-      } 
-      if (!user && pathname !== "/") {
+    if (loading) return;
+
+    if (user && pathname !== "/HomeScreen") {
+      router.replace("/HomeScreen");
+    }
+
+    if (!user) {
+      const publicRoutes = ["/", "/RegisterScreen"];
+      if (!publicRoutes.includes(pathname)) {
         router.replace("/");
       }
     }
@@ -84,7 +88,7 @@ export default function LoginScreen() {
         />
 
         <TextInput
-          style={styles.input}
+          style={[styles.input, { color: colors.text }]}
           placeholder={t("login.passwordPlaceholder")}
           placeholderTextColor="#aaa"
           secureTextEntry
@@ -129,7 +133,6 @@ const getStyles = (colors: any) =>
     },
     input: {
       backgroundColor: colors.inputBackground,
-      color: "#fff",
       borderRadius: 10,
       padding: 15,
       marginBottom: 15,
