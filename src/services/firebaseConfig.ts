@@ -8,7 +8,9 @@ import {
   doc,
   getDocs,
   getFirestore,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
 const{getReactNativePersistence} = require("firebase/auth") as any;
@@ -31,4 +33,4 @@ const auth = initializeAuth(app,{
   persistence:getReactNativePersistence(AsyncStorage) 
 })
 
-export { addDoc, auth, collection, db, deleteDoc, doc, getDocs, updateDoc };
+export { addDoc, auth, collection, db, deleteDoc, doc, getDocs, updateDoc, query, where };

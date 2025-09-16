@@ -13,11 +13,13 @@ import { useTheme } from "../src/context/ThemeContext";
 import { addDoc, collection, db } from "../src/services/firebaseConfig";
 import { Timestamp } from "firebase/firestore";
 import { scheduleTaskNotification } from "../src/services/notification";
+import { useAuth } from "../src/context/AuthContext";
 
 
 export default function CreateTaskScreen({ navigation }: any) {
   const { colors } = useTheme();
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const completed = false;
@@ -47,6 +49,7 @@ export default function CreateTaskScreen({ navigation }: any) {
 
     try{
       const docRef = await addDoc(collection(db,'items'),{
+      userId: user?.uid,
       title: title,
       description: description,
       completed: completed,

@@ -36,7 +36,9 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "router": {},
+      "router": {
+        "origin": false
+      },
       "eas": {
         "projectId": "c461ce59-7f68-4666-920b-5e7455ac8396"
       }

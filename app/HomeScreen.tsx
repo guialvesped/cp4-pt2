@@ -16,11 +16,13 @@ import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import { useTheme } from "../src/context/ThemeContext";
 import { collection, db, getDocs } from "../src/services/firebaseConfig";
 import { useEffect, useState } from "react";
-import { onSnapshot, Timestamp } from "firebase/firestore";
+import { onSnapshot, query, Timestamp, where } from "firebase/firestore";
 import TaskIdeas from "../src/components/TaskIdeas";
 import LogoutButton from "../src/components/LogoutButton";
+import { useAuth } from "../src/context/AuthContext";
 
 export interface Task {
+  userId: string;
   id: string;
   title: string;
   description: string;
@@ -34,11 +36,16 @@ export default function HomeScreen() {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const styles = getStyles(colors);
+  const { user } = useAuth();
 
   const [tasksList, setTasksList] = useState<Task[]>([])
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "items"), (querySnapshot) => {
+    if (!user) return;
+
+    const q = query(collection(db, "items"), where("userId", "==", user.uid));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const items: Task[] = [];
 
       querySnapshot.forEach((doc) => {
@@ -51,6 +58,7 @@ export default function HomeScreen() {
         };
 
         items.push({
+          userId: data.userId,
           id: doc.id,
           title: data.title,
           description: data.description,
@@ -64,8 +72,8 @@ export default function HomeScreen() {
       setTasksList(items);
     });
 
-    return () => unsubscribe();
-  }, []);
+    return () => unsubscribe(); 
+  }, [user]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>

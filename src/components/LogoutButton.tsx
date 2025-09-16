@@ -3,8 +3,10 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
+import { useTranslation } from "react-i18next";
 
 export default function LogoutButton() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const handleLogout = () => {
@@ -33,5 +35,5 @@ export default function LogoutButton() {
     );
   };
 
-  return <Button title="Sair" onPress={handleLogout} color="red" />;
+  return <Button title={t("home.logout")} onPress={handleLogout} color="red" />;
 }

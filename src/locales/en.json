@@ -30,7 +30,8 @@
     "created": "Created",
     "updated": "Updated",
     "due": "Due",
-    "taskIdea": "Task idea"
+    "taskIdea": "Task idea",
+    "logout": "Logout"
   },
   "createTask": {
     "title": "Create Task",
