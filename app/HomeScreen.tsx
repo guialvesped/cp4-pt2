@@ -16,7 +16,7 @@ import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import { useTheme } from "../src/context/ThemeContext";
 import { collection, db, getDocs } from "../src/services/firebaseConfig";
 import { useEffect, useState } from "react";
-import { Timestamp } from "firebase/firestore";
+import { onSnapshot, Timestamp } from "firebase/firestore";
 
 export interface Task {
   id: string;
@@ -56,22 +56,21 @@ export default function HomeScreen() {
 
   const [tasksList, setTasksList] = useState<Task[]>([])
 
-  const buscarProdutos = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, 'items'));
-      const items: any = []
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "items"), (querySnapshot) => {
+      const items: Task[] = [];
 
-      querySnapshot.forEach((item) => {
-        const data = item.data();
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
 
         const parseDate = (value: any) => {
-          if (!value) return ""; 
+          if (!value) return "";
           if (value instanceof Timestamp) return value.toDate().toISOString();
-          return value; 
+          return value;
         };
 
         items.push({
-          id: item.id,
+          id: doc.id,
           title: data.title,
           description: data.description,
           completed: data.completed,
@@ -80,15 +79,12 @@ export default function HomeScreen() {
           updatedAt: parseDate(data.updatedAt),
         });
       });
-      setTasksList(items)
-    } catch (e) {
-      console.log("Erro ao carregar os items", e)
-    }
-  }
 
-  useEffect(() => {
-    buscarProdutos()
-  }, [])
+      setTasksList(items);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
