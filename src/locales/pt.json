@@ -29,7 +29,8 @@
     "pending": "⏳ Pendente",
     "created": "Criada",
     "updated": "Atualizada",
-    "due": "Prazo"
+    "due": "Prazo",
+    "taskIdea": "Ideia de task"
   },
   "createTask": {
     "title": "Criar Task",

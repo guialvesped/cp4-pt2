@@ -17,6 +17,7 @@ import { useTheme } from "../src/context/ThemeContext";
 import { collection, db, getDocs } from "../src/services/firebaseConfig";
 import { useEffect, useState } from "react";
 import { onSnapshot, Timestamp } from "firebase/firestore";
+import TaskIdeas from "../src/components/TaskIdeas";
 
 export interface Task {
   id: string;
@@ -99,6 +100,7 @@ export default function HomeScreen() {
         <ThemeToggleButton />
         <LanguageSelector />
       </View>
+      <TaskIdeas/>
       <View
         style={{
           display: "flex",
@@ -118,6 +120,8 @@ export default function HomeScreen() {
           <AntDesign name="plus" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
+
+
       {tasksList.length<=0?<ActivityIndicator/>:(
         <FlatList
           data={tasksList}
