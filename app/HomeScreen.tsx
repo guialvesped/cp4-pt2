@@ -18,6 +18,7 @@ import { collection, db, getDocs } from "../src/services/firebaseConfig";
 import { useEffect, useState } from "react";
 import { onSnapshot, Timestamp } from "firebase/firestore";
 import TaskIdeas from "../src/components/TaskIdeas";
+import LogoutButton from "../src/components/LogoutButton";
 
 export interface Task {
   id: string;
@@ -77,6 +78,7 @@ export default function HomeScreen() {
         }}
       >
         <ThemeToggleButton />
+        <LogoutButton />
         <LanguageSelector />
       </View>
       <TaskIdeas/>

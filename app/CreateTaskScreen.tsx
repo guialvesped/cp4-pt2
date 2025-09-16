@@ -12,6 +12,8 @@ import {
 import { useTheme } from "../src/context/ThemeContext";
 import { addDoc, collection, db } from "../src/services/firebaseConfig";
 import { Timestamp } from "firebase/firestore";
+import { scheduleTaskNotification } from "../src/services/notification";
+
 
 export default function CreateTaskScreen({ navigation }: any) {
   const { colors } = useTheme();
@@ -36,6 +38,9 @@ export default function CreateTaskScreen({ navigation }: any) {
       createdAt: createdAt,
       updatedAt: updatedAt
       })
+
+     await scheduleTaskNotification( title, dueDate);
+
       console.log("Produto criado com o ID:",docRef.id)
       router.push("HomeScreen")
     }catch(e){
