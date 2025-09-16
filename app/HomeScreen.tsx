@@ -29,27 +29,6 @@ export interface Task {
   updatedAt: string;
 }
 
-const mockTasks = [
-  {
-    id: "1",
-    title: "Estudar React Native",
-    description: "Revisar componentes e hooks principais.",
-    completed: false,
-    dueDate: "2025-09-20",
-    createdAt: "2025-09-10",
-    updatedAt: "2025-09-12",
-  },
-  {
-    id: "2",
-    title: "Finalizar projeto",
-    description: "Terminar as telas e integração com backend.",
-    completed: true,
-    dueDate: "2025-09-15",
-    createdAt: "2025-09-01",
-    updatedAt: "2025-09-14",
-  },
-];
-
 export default function HomeScreen() {
   const { colors } = useTheme();
   const { t } = useTranslation();
