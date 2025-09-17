@@ -2,6 +2,9 @@
 
 Um aplicativo de gerenciamento de tarefas desenvolvido com React Native e Expo, oferecendo uma experiência completa de organização pessoal com autenticação, notificações e suporte multilíngue.
 
+## Link do video de Apresentação:
+- https://youtube.com/shorts/c-X6YljWA5k?feature=share
+
 ## ✨ Funcionalidades
 
 ### 🔐 Autenticação
@@ -159,6 +162,6 @@ cp4/
 └── package.json                # Dependências e scripts
 ```
 ### Integrantes
-Guilherme Alves Pedroso - RM555357
-Edvan Davi - RM554733
-Rafael Romanini - RM554637
+- Guilherme Alves Pedroso - RM555357
+- Edvan Davi - RM554733
+- Rafael Romanini - RM554637
